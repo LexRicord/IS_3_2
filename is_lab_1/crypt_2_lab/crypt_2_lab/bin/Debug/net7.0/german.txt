@@ -1,0 +1,11 @@
+Erstellen Sie eine Anwendung zur Berechnung und Analyse der Parameter und informativen Eigenschaften diskreter ICs, mit deren Hilfe:
+a) Berechnen Sie die Entropie der vom Lehrer angegebenen Alphabete:
+eines ist auf Lateinisch, das andere auf Kyrillisch (gemäß Formel (2.1) gehen Sie von der Häufigkeit des Auftretens jedes Zeichens des Alphabets zur entsprechenden Wahrscheinlichkeit über); Als Eingabe kann ein beliebiges elektronisches Textdokument auf Basis des entsprechenden Alphabets akzeptiert werden; die Häufigkeit des Vorkommens von Symbolen der anzuordnenden Alphabete
+in Form von Histogrammen (Sie können MS Excel verwenden);
+b) für in Binärcodes dargestellte Eingabedokumente die Entropie des Binäralphabets bestimmen;
+c) Verwendung der Entropiewerte der in erhaltenen Alphabete
+Berechnen Sie in den Absätzen (a) und (b) die Informationsmenge in einer Nachricht, die aus Ihrem eigenen Nachnamen, Vornamen und Vatersnamen besteht (in
+basierend auf dem Originalalphabet – (a) und in ASCII-Codes – (b)); erklären
+das erhaltene Ergebnis;
+d) die Aufgabe von Punkt (c) erfüllen, vorausgesetzt, dass die Wahrscheinlichkeit
+Die fehlerhafte Übertragung eines einzelnen Bits der Nachricht beträgt: 0,1;0,5; 1,0.
