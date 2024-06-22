@@ -8,4 +8,4 @@ Berechnen Sie in den Absätzen (a) und (b) die Informationsmenge in einer Nachri
 basierend auf dem Originalalphabet – (a) und in ASCII-Codes – (b)); erklären
 das erhaltene Ergebnis;
 d) die Aufgabe von Punkt (c) erfüllen, vorausgesetzt, dass die Wahrscheinlichkeit
-Die fehlerhafte Übertragung eines einzelnen Bits der Nachricht beträgt: 0,1;0,5; 1,0.
+Die fehlerhafte Übertragung eines einzelnen Bits der Nachricht beträgt: 0,1; 0,5; 1,0.

@@ -14,22 +14,20 @@ namespace Lab2
             int choice = 0;
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             const string fileName = "D:\\repos\\IS_3_2\\is_lab_1\\crypt_2_lab\\crypt_2_lab\\bin\\Debug\\net7.0\\Lab_2.xlsx";
+            double entropyRussian = 0.0, entropyGerman = 0.0, binaryEntropyGerman = 0.0, binaryEntropyRussian = 0.0; 
 
             List<char> germanAlphabet = new List<char>()
             {
                 'a','b','c','d','e','f','g','h','i','j','k',
                 'l','m','n','o','p','r','s','t','u','v','w',
-                'ä', 'ö','ü','ß'
+                'ä','ö','ü','ß'
             };
 
             List<char> russianAlphabet = new List<char>()
             {
-                '\u0430','\u0431','\u0432','\u0433',
-                '\u0434','\u0435','\u0436','\u0437','\u0438',
-                '\u0439','\u0440','\u0441','\u0442','\u0443',
-                '\u0444','\u0445','\u0446','\u0447','\u0448',
-                '\u0449','\u044A','\u044B','\u044C','\u044D',
-                '\u044E','\u044F',
+                'а','б','в','г',
+                'д','е','ё','ж','з',
+                'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'
             };
             while (choice != 5)
             {
@@ -63,6 +61,9 @@ namespace Lab2
 
                             germanChecker.computeTextEntropy(chancesGerman);
                             russianChecker.computeTextEntropy(chancesRussian);
+
+                            entropyRussian = russianChecker.AlphabetEntropy;
+                            entropyGerman = germanChecker.AlphabetEntropy;
 
                             germanChecker.printAlphabet();
                             germanChecker.printExampleOfBinaryChar();
@@ -100,11 +101,11 @@ namespace Lab2
                         {
                             Console.Clear();
 
-                            EntropyChecker germanChecker = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код(Немецкий)");
-                            EntropyChecker russianChecker = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код(Русский)");
+                            EntropyChecker germanBinChecker = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код(Немецкий)");
+                            EntropyChecker russianBinChecker = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код(Русский)");
 
-                            string germanText = germanChecker.OpenDocument("german.txt").ReadToEnd().ToLower();
-                            string russianText = russianChecker.OpenDocument("russian.txt").ReadToEnd().ToLower();
+                            string germanText = germanBinChecker.OpenDocument("german.txt").ReadToEnd().ToLower();
+                            string russianText = russianBinChecker.OpenDocument("russian.txt").ReadToEnd().ToLower();
 
                             Regex regex = new Regex(@"\W");
                             germanText = regex.Replace(germanText, "");
@@ -125,29 +126,31 @@ namespace Lab2
                                 binTextRussian += Convert.ToString(chr, 2).PadLeft(8, '0');
                             }
 
-                            Dictionary<char, int> germanDict = germanChecker.alphabetListToDictionary();
-                            Dictionary<char, int> russianDict = russianChecker.alphabetListToDictionary();
+                            Dictionary<char, int> germanDict = germanBinChecker.alphabetListToDictionary();
+                            Dictionary<char, int> russianDict = russianBinChecker.alphabetListToDictionary();
 
-                            germanChecker.getSymbolsCounts(binTextGerman, germanDict);
-                            russianChecker.getSymbolsCounts(binTextRussian, russianDict);
+                            germanBinChecker.getSymbolsCounts(binTextGerman, germanDict);
+                            russianBinChecker.getSymbolsCounts(binTextRussian, russianDict);
 
-                            Dictionary<char, double> chancesGerman = germanChecker.getSymbolsChances(binTextGerman, germanDict);
-                            Dictionary<char, double> chancesRussian = russianChecker.getSymbolsChances(binTextRussian, russianDict);
+                            Dictionary<char, double> chancesGerman = germanBinChecker.getSymbolsChances(binTextGerman, germanDict);
+                            Dictionary<char, double> chancesRussian = russianBinChecker.getSymbolsChances(binTextRussian, russianDict);
 
-                            germanChecker.computeTextEntropy(chancesGerman);
-                            russianChecker.computeTextEntropy(chancesRussian);
+                            germanBinChecker.computeTextEntropy(chancesGerman);
+                            russianBinChecker.computeTextEntropy(chancesRussian);
+
+                            binaryEntropyRussian = russianBinChecker.AlphabetEntropy;
+                            binaryEntropyGerman = germanBinChecker.AlphabetEntropy;
+
+                            germanBinChecker.printAlphabet();
+                            germanBinChecker.printExampleOfBinaryChar();
+                            germanBinChecker.printChances(chancesGerman);
+                            germanBinChecker.printAlhabetEntropy();
 
 
-                            germanChecker.printAlphabet();
-                            germanChecker.printExampleOfBinaryChar();
-                            germanChecker.printChances(chancesGerman);
-                            germanChecker.printAlhabetEntropy();
-
-
-                            russianChecker.printAlphabet();
-                            russianChecker.printExampleOfBinaryChar();
-                            russianChecker.printChances(chancesRussian);
-                            russianChecker.printAlhabetEntropy();
+                            russianBinChecker.printAlphabet();
+                            russianBinChecker.printExampleOfBinaryChar();
+                            russianBinChecker.printChances(chancesRussian);
+                            russianBinChecker.printAlhabetEntropy();
 
                             double sumGerman = 0;
                             double sumRussian = 0;
@@ -176,10 +179,10 @@ namespace Lab2
                         {
                             Console.Clear();
 
-                            EntropyChecker germanChecker = new EntropyChecker(germanAlphabet, 0, "Немецкий(Германия)");
-                            EntropyChecker russianChecker = new EntropyChecker(russianAlphabet, 0, "Русский");
-                            EntropyChecker germanCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код (немецкий(Германия))");
-                            EntropyChecker russianCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код (русский)");
+                            EntropyChecker germanChecker = new EntropyChecker(germanAlphabet, entropyGerman, "Немецкий(Германия)");
+                            EntropyChecker russianChecker = new EntropyChecker(russianAlphabet, entropyRussian, "Русский");
+                            EntropyChecker germanCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, binaryEntropyGerman, "Бинарный код (немецкий(Германия))");
+                            EntropyChecker russianCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, binaryEntropyRussian, "Бинарный код (русский)");
 
                             string germanText = "germanaleksandrevgenievich";
                             string russianText = "германалександревгеньевич";
@@ -214,40 +217,33 @@ namespace Lab2
                             Dictionary<char, double> chancesGermanBin = germanCheckerBin.getSymbolsChances(binTextGerman, germanDictBin);
                             Dictionary<char, double> chancesRussianBin = russianCheckerBin.getSymbolsChances(binTextRussian, russianDictBin);
 
-                            germanChecker.computeTextEntropy(chancesGerman);
-                            russianChecker.computeTextEntropy(chancesRussian);
-                            germanCheckerBin.computeTextEntropy(chancesGermanBin);
-                            russianCheckerBin.computeTextEntropy(chancesRussianBin);
-
-
                             germanChecker.printAlphabet();
                             germanChecker.printExampleOfBinaryChar();
                             germanChecker.printChances(chancesGerman);
                             germanChecker.printAlhabetEntropy();
 
-                            Console.WriteLine($"Количество информации сообщения. Язык - {germanChecker.AlphabetName}: {germanChecker.AlphabetEntropy * germanText.Length}");
+                            Console.WriteLine($"\n\nКоличество информации сообщения. Язык - {germanChecker.AlphabetName}: {entropyGerman * germanText.Length}");
 
                             russianChecker.printAlphabet();
                             russianChecker.printExampleOfBinaryChar();
                             russianChecker.printChances(chancesRussian);
                             russianChecker.printAlhabetEntropy();
 
-                            Console.WriteLine($"Количество информации сообщения. Язык - {russianChecker.AlphabetName}: {russianChecker.AlphabetEntropy * russianText.Length}");
+                            Console.WriteLine($"Количество информации сообщения. Язык - {russianChecker.AlphabetName}: {entropyRussian * russianText.Length}");
 
                             germanCheckerBin.printAlphabet();
                             germanCheckerBin.printExampleOfBinaryChar();
                             germanCheckerBin.printChances(chancesGermanBin);
                             germanCheckerBin.printAlhabetEntropy();
 
-                            Console.WriteLine($"Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {germanCheckerBin.AlphabetEntropy * binTextGerman.Length}");
+                            Console.WriteLine($"Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {binaryEntropyGerman * binTextGerman.Length}");
 
                             russianCheckerBin.printAlphabet();
                             russianCheckerBin.printExampleOfBinaryChar();
                             russianCheckerBin.printChances(chancesRussianBin);
                             russianCheckerBin.printAlhabetEntropy();
 
-                            Console.WriteLine($"Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {russianCheckerBin.AlphabetEntropy * binTextRussian.Length}");
-
+                            Console.WriteLine($"Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {binaryEntropyRussian * binTextRussian.Length}");
 
                             double sumGerman = 0;
                             double sumRussian = 0;
@@ -291,7 +287,8 @@ namespace Lab2
                     case 4:
                         {
                             Console.Clear();
-
+                            EntropyChecker germanChecker = new EntropyChecker(germanAlphabet, 0, "Немецкий(Германия)");
+                            EntropyChecker russianChecker = new EntropyChecker(russianAlphabet, 0, "Русский");
                             EntropyChecker germanCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код (немецкий)");
                             EntropyChecker russianCheckerBin = new EntropyChecker(new List<char>() { '0', '1' }, 0, "Бинарный код (русский)");
 
@@ -313,14 +310,30 @@ namespace Lab2
                                 binTextRussian += Convert.ToString(chr, 2).PadLeft(8, '0');
                             }
 
+                            Dictionary<char, int> germanDict = germanChecker.alphabetListToDictionary();
+                            Dictionary<char, int> russianDict = russianChecker.alphabetListToDictionary();
                             Dictionary<char, int> germanDictBin = germanCheckerBin.alphabetListToDictionary();
                             Dictionary<char, int> russianDictBin = russianCheckerBin.alphabetListToDictionary();
 
+                            germanChecker.getSymbolsCounts(germanText, germanDict);
+                            russianChecker.getSymbolsCounts(russianText, russianDict);
                             germanCheckerBin.getSymbolsCounts(binTextGerman, germanDictBin);
                             russianCheckerBin.getSymbolsCounts(binTextRussian, russianDictBin);
 
+                            Dictionary<char, double> chancesGerman = germanChecker.getSymbolsChances(germanText, germanDict);
+                            Dictionary<char, double> chancesRussian = russianChecker.getSymbolsChances(russianText, russianDict);
                             Dictionary<char, double> chancesGermanBin = germanCheckerBin.getSymbolsChances(binTextGerman, germanDictBin);
                             Dictionary<char, double> chancesRussianBin = russianCheckerBin.getSymbolsChances(binTextRussian, russianDictBin);
+
+                            germanChecker.printAlphabet();
+                            germanChecker.printExampleOfBinaryChar();
+                            germanChecker.printChances(chancesGerman);
+                            germanChecker.printAlhabetEntropy();
+
+                            russianChecker.printAlphabet();
+                            russianChecker.printExampleOfBinaryChar();
+                            russianChecker.printChances(chancesRussian);
+                            russianChecker.printAlhabetEntropy();
 
                             germanCheckerBin.printAlphabet();
                             germanCheckerBin.printExampleOfBinaryChar();
@@ -332,13 +345,21 @@ namespace Lab2
                             russianCheckerBin.printChances(chancesRussianBin);
                             russianCheckerBin.printAlhabetEntropy();
 
+                            Console.WriteLine($"\n\nОшибка = 0.1. Количество информации сообщения. Язык - {germanChecker.AlphabetName}: {(entropyGerman - germanChecker.computeTextEntropyWithErrorV2(chancesGerman, 0.1)) * germanText.Length}");
+                            Console.WriteLine($"Ошибка = 0.5. Количество информации сообщения. Язык - {germanChecker.AlphabetName}: {(entropyGerman - germanChecker.computeTextEntropyWithErrorV2(chancesGerman, 0.5)) * germanText.Length}");
+                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {germanChecker.AlphabetName}: {(entropyGerman - germanChecker.computeTextEntropyWithErrorV2(chancesGerman, 0.999)) * germanText.Length}\n");
+
+                            Console.WriteLine($"Ошибка = 0.1. Количество информации сообщения. Язык - {russianChecker.AlphabetName}: {(entropyRussian - russianChecker.computeTextEntropyWithErrorV2(chancesRussian, 0.1)) * russianText.Length}");
+                            Console.WriteLine($"Ошибка = 0.5. Количество информации сообщения. Язык - {russianChecker.AlphabetName}: {(entropyRussian - russianChecker.computeTextEntropyWithErrorV2(chancesRussian, 0.5)) * russianText.Length}");
+                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {russianChecker.AlphabetName}: {(entropyRussian - russianChecker.computeTextEntropyWithErrorV2(chancesRussian, 0.999)) * russianText.Length}\n");
+
                             Console.WriteLine($"Ошибка = 0.1. Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {germanCheckerBin.computeTextEntropyWithError(chancesGermanBin, 0.1) * binTextGerman.Length}");
                             Console.WriteLine($"Ошибка = 0.5. Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {germanCheckerBin.computeTextEntropyWithError(chancesGermanBin, 0.5) * binTextGerman.Length}");
-                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {germanCheckerBin.computeTextEntropyWithError(chancesGermanBin, 0.999) * binTextGerman.Length}");
+                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {germanCheckerBin.AlphabetName}: {germanCheckerBin.computeTextEntropyWithError(chancesGermanBin, 0.999) * binTextGerman.Length}\n");
 
                             Console.WriteLine($"Ошибка = 0.1. Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {russianCheckerBin.computeTextEntropyWithError(chancesRussianBin, 0.1) * binTextRussian.Length}");
                             Console.WriteLine($"Ошибка = 0.5. Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {russianCheckerBin.computeTextEntropyWithError(chancesRussianBin, 0.5) * binTextRussian.Length}");
-                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {russianCheckerBin.computeTextEntropyWithError(chancesRussianBin, 1) * binTextRussian.Length}");
+                            Console.WriteLine($"Ошибка = 1. Количество информации сообщения. Язык - {russianCheckerBin.AlphabetName}: {(russianCheckerBin.computeTextEntropyWithError(chancesRussianBin, 0.999) * binaryEntropyRussian) * binTextRussian.Length}\n");
 
 
                             Console.ReadKey();

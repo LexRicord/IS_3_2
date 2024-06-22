@@ -1,0 +1,7 @@
+D:\repos\IS_3_2\is_lab_7\is_lab_7\bin\Debug\Lab6.exe.config
+D:\repos\IS_3_2\is_lab_7\is_lab_7\bin\Debug\Lab6.exe
+D:\repos\IS_3_2\is_lab_7\is_lab_7\bin\Debug\Lab6.pdb
+D:\repos\IS_3_2\is_lab_7\is_lab_7\obj\Debug\is_lab_7.csproj.AssemblyReference.cache
+D:\repos\IS_3_2\is_lab_7\is_lab_7\obj\Debug\is_lab_7.csproj.CoreCompileInputs.cache
+D:\repos\IS_3_2\is_lab_7\is_lab_7\obj\Debug\Lab6.exe
+D:\repos\IS_3_2\is_lab_7\is_lab_7\obj\Debug\Lab6.pdb

@@ -1,0 +1,14 @@
+D:\3\КМЗИ\8\lab8\lab8\bin\Debug\lab8.exe.config
+D:\3\КМЗИ\8\lab8\lab8\bin\Debug\lab8.exe
+D:\3\КМЗИ\8\lab8\lab8\bin\Debug\lab8.pdb
+D:\3\КМЗИ\8\lab8\lab8\obj\Debug\lab8.csprojAssemblyReference.cache
+D:\3\КМЗИ\8\lab8\lab8\obj\Debug\lab8.csproj.CoreCompileInputs.cache
+D:\3\КМЗИ\8\lab8\lab8\obj\Debug\lab8.exe
+D:\3\КМЗИ\8\lab8\lab8\obj\Debug\lab8.pdb
+D:\repos\IS_3_2\is_lab_8\lab8\obj\Debug\lab8.csproj.AssemblyReference.cache
+D:\repos\IS_3_2\is_lab_8\lab8\obj\Debug\lab8.csproj.CoreCompileInputs.cache
+D:\repos\IS_3_2\is_lab_8\lab8\obj\Debug\lab8.exe
+D:\repos\IS_3_2\is_lab_8\lab8\obj\Debug\lab8.pdb
+D:\repos\IS_3_2\is_lab_8\lab8\bin\Debug\lab8.exe.config
+D:\repos\IS_3_2\is_lab_8\lab8\bin\Debug\lab8.exe
+D:\repos\IS_3_2\is_lab_8\lab8\bin\Debug\lab8.pdb

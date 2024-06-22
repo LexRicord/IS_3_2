@@ -63,10 +63,11 @@ namespace crypt_2_lab.EntropyChecker
             {
                 throw new Exception("Document isn't open");
             }
-            else
-            {
-                return reader.ReadToEnd();
-            }
+
+            string fullText = reader.ReadToEnd();
+            string alphabeticText = new string(fullText.Where(char.IsLetter).ToArray());
+
+            return alphabeticText;
         }
 
         public Dictionary<char, double> getSymbolsChances(string text, Dictionary<char, int> counts)
@@ -104,28 +105,31 @@ namespace crypt_2_lab.EntropyChecker
                     AlphabetEntropy += chances[alphabet[i]] * Math.Log(chances[alphabet[i]], 2);
                 }
             }
-
             AlphabetEntropy = -AlphabetEntropy;
         }
 
         public double computeTextEntropyWithError(Dictionary<char, double> chances, double p)
         {
             double q = 1 - p;
-            double entropy = 0;
-            double conditionalEntropy = 1 - (-p * Math.Log(p, 2) - q * Math.Log(q, 2));
-            if (double.IsNaN(conditionalEntropy))
+            double effectiveEntropy = 1 - (-p * Math.Log(p, 2) - q * Math.Log(q, 2));
+            Console.WriteLine($"Effective entropy(with error): {effectiveEntropy}");
+            if (double.IsNaN(effectiveEntropy))
             {
                 return 0;
             }
-            for (int i = 0; i < alphabet.Count; i++)
-            {
-                if (chances[alphabet[i]] != 0)
-                {
-                    entropy += chances[alphabet[i]] * Math.Log(chances[alphabet[i]], 2) - conditionalEntropy;
-                }
-            }
+            return effectiveEntropy;
+        }
 
-            return -entropy;
+        public double computeTextEntropyWithErrorV2(Dictionary<char, double> chances, double p)
+        {
+            double q = 1 - p;
+            double effectiveEntropy = (-p * Math.Log(p, 2) - q * Math.Log(q, 2));
+            Console.WriteLine($"Effective entropy(with error): {effectiveEntropy}");
+            if (double.IsNaN(effectiveEntropy))
+            {
+                return 0;
+            }
+            return effectiveEntropy;
         }
 
         public StreamReader OpenDocument(string path)
